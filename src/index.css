@@ -31,3 +31,17 @@ body {
         transform: translateY(3px);
     }
 }
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 500px) {
+    .invisible {
+        display: none;
+    }
+}
+
+li {
+    list-style: none;
+}
