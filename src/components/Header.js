@@ -1,13 +1,15 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 function Header() {
+  const [burgerStatus, setBurgerStatus] = useState(false);
   return (
     <Container>
       <a>
         <img src="/images/tesla-logo.svg" />
       </a>
       <Menu>
-        <a href="#">Model S</a>
+        <a href="/models.js">Model S</a>
         <a href="#">Model 3</a>
         <a href="#">Model X</a>
         <a href="#">Model Y</a>
@@ -21,10 +23,15 @@ function Header() {
         <a href="#" className="invisible">
           Account
         </a>
-        <a href="#">Menu</a>
+        <a href="#" onClick={() => setBurgerStatus(true)}>
+          Menu
+        </a>
       </RightMenu>
-      <BurgerNav>
-        <img src="/images/close-line.svg" />
+      <BurgerNav show={burgerStatus}>
+        <img
+          src="/images/close-line.svg"
+          onClick={() => setBurgerStatus(false)}
+        />
         <li>
           <a href="#">Existing Inventory</a>
         </li>
@@ -81,7 +88,7 @@ function Header() {
 export default Header;
 
 const Container = styled.div`
-  z-index: 1;
+  z-index: 100;
   min-height: 60px;
   width: 100%;
   position: fixed;
@@ -93,6 +100,10 @@ const Container = styled.div`
   @media (max-width: 500px) {
     padding: 0;
   }
+
+  a {
+    cursor: pointer;
+  }
 `;
 
 const Menu = styled.div`
@@ -100,9 +111,15 @@ const Menu = styled.div`
   align-items: center;
   a {
     font-weight: 600;
-    padding: 0 10px;
+    padding: 6px 10px;
+    border-radius: 10px;
     font-size: 15px;
     flex-wrap: nowrap;
+    transition: 0.5s;
+  }
+
+  a:hover {
+    background-color: rgb(153, 186, 204);
   }
   @media (max-width: 1100px) {
     display: none;
@@ -130,7 +147,8 @@ const BurgerNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  transform: ${(props) => (props.show ? "translateX(0)" : "translateX(100%)")};
+  transition: 0.4s ease-out;
   li {
     padding: 10px 0;
     width: 100%;
